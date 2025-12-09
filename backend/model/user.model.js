@@ -30,7 +30,7 @@ const userSchema = Schema({
         type: String,
         required: true
        },
-       username: {
+       linkUsername: {
         type: String,
         required: true
        }

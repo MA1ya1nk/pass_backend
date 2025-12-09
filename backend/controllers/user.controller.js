@@ -31,7 +31,11 @@ const Register = asyncHandler(async(req, res) => {
    const existedUser = await User.findOne({
     $or: [{username}, {email}]  // return if any among username or email exist
    })
-   if(existedUser) throw new ApiError(400, "User already exist")
+   if(existedUser) 
+    res.status(400).json({
+        success: false,
+        message: "User already exists"
+    })
 
     const user = await User.create({
         username,
@@ -123,13 +127,96 @@ const logout = asyncHandler( async(req, res) => {
 
      const options = {
       httpOnly: true,
-      secure: true 
+      secure: false,   // same as login
+    sameSite: "lax",
+    path: "/"
      }
 
      return res.status(200)
-     .clearCookie("accessCookie", options)
-     .clearCookie("refreshCookie", options)
+     .clearCookie("accessToken", options)
+     .clearCookie("refreshToken", options)
      .json(new ApiResponse(200, {}, "User logged out"))
 })
 
-export { Register, login, logout }
+const addPassword = asyncHandler( async(req, res) => {
+    const {link, linkUsername, linkPassword} = req.body
+    if(!link || !linkUsername || !linkPassword) throw new ApiError(400, "All fields are required")
+
+    const update = await User.updateOne(
+  { _id: req.user._id },
+  {
+    $push: {
+      data:{
+        link,
+        linkUsername,
+        linkPassword
+      } 
+      
+    }
+  }
+)
+    const updatedUser = await User.findById(req.user._id).select("-password -refreshToken")
+          
+
+    return res.status(200).json(new ApiResponse(200, updatedUser, "Password added successfully"))
+})
+
+const deletePassword = asyncHandler( async(req, res) => {
+    const { link, linkUsername, linkPassword } = req.body;
+
+    if (!link || !linkUsername || !linkPassword) {
+      throw new ApiError(400, "All fields are required");
+    }
+
+    await User.updateOne(
+      { _id: req.user._id },
+      {
+        $pull: {
+          data: {
+            link: link,
+            linkUsername: linkUsername,
+            linkPassword: linkPassword
+          }
+        }
+      }
+    );
+    
+    const updatedUser = await User.findById(req.user._id).select("-password -refreshToken")
+
+    return res.status(200).json(new ApiResponse(200, updatedUser, "Password added successfully"))
+});
+
+const updatePassword = asyncHandler( async(req, res) => {
+    const { oldLink, oldLinkUsername, oldLinkPassword, newLink, newLinkUsername, newLinkPassword } = req.body;
+    
+    if(!oldLink || !oldLinkUsername || !oldLinkPassword || !newLink || !newLinkUsername || !newLinkPassword) {
+      throw new ApiError(400, "All fields are required");
+    }
+    
+    const result = await User.updateOne(
+      {
+        _id: req.user._id
+      },
+      {
+        $set: {
+          "data.$[elem].link": newLink,
+          "data.$[elem].linkUsername": newLinkUsername,
+          "data.$[elem].linkPassword": newLinkPassword
+        }
+      },
+      {
+        arrayFilters: [
+          {
+            "elem.link": oldLink,
+            "elem.linkUsername": oldLinkUsername,
+            "elem.linkPassword": oldLinkPassword
+          }
+        ]
+      }
+    );
+    
+
+    return res.json({ success: true, result });
+});  
+
+export { Register, login, logout, addPassword, deletePassword, updatePassword };
