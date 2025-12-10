@@ -84,9 +84,9 @@ const login = asyncHandler(async(req, res) => {
       // sending these tokens into cookies
       const options = {
          httpOnly: true,  // by this no one can update cookie on frontend and modifiable through server only
-         secure: false,
-         sameSite: "lax",  // ✅ MUST be "lax" on localhost
-  path: "/",        
+         secure: true,
+         sameSite: "none",  // ✅ MUST be "lax" on localhost
+  // path: "/",        
       }
 
       return res
@@ -127,9 +127,9 @@ const logout = asyncHandler( async(req, res) => {
 
      const options = {
       httpOnly: true,
-      secure: false,   // same as login
-    sameSite: "lax",
-    path: "/"
+      secure: true,   // same as login
+    sameSite: "none",
+    
      }
 
      return res.status(200)
