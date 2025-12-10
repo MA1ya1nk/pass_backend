@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api.js";
 
 export const AuthContext = createContext();
 
@@ -11,9 +11,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/users/me", {
-          withCredentials: true,
-        });
+        const res = await api.get("/users/me");
         console.log("Auth check successful:", res.data);
         setUser(res.data.user); // ✅ logged in
       } catch (err) {
@@ -39,11 +37,8 @@ export const AuthProvider = ({ children }) => {
       const c=alert("Are you sure you want to logout?");
       if(c) return;
     try {
-      await axios.post(
-        "http://localhost:3000/users/logout",
-        {}, 
-        { withCredentials: true }  // IMPORTANT
-      );
+      
+         await api.post("/users/logout");
 
       setUser(null);
     } catch (err) {
@@ -52,12 +47,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const addPassword = async (newData) => {
-  const res = await axios.post(
-    "http://localhost:3000/users/addPassword",
-    newData,
-    { withCredentials: true }
-  );
-
+  
+        const res = await api.post("/users/addPassword", newData);
 
             console.log('User logged in successfully:', res.data.data);
             setUser(res.data.data);
@@ -67,11 +58,7 @@ export const AuthProvider = ({ children }) => {
 
 const delPassword = async (entry) => {
   
-  const res = await axios.post(
-    "http://localhost:3000/users/deletePassword",
-    entry,
-    { withCredentials: true }
-  );
+        const res = await api.post("/users/deletePassword", entry);
 
   console.log('User deleted successfully:', res.data.data);
             setUser(res.data.data);
@@ -80,11 +67,10 @@ const delPassword = async (entry) => {
 
 
 const updPassword = async (oldEntry, newEntry) => {
-  const res = await axios.post(
-    "http://localhost:3000/users/update-password",
-    { oldEntry, newEntry },
-    { withCredentials: true }
-  );
+  
+
+  
+        const res = await api.post("/users/updatePassword", { oldEntry, newEntry });
 
   setUser(prev => ({
     ...prev,

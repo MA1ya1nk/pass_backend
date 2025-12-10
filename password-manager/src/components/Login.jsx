@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import axios from 'axios'
+import api from '../api.js';
 import { useNavigate } from 'react-router-dom'
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -13,12 +13,11 @@ const Login = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/users/login', {
+                    const response = await api.post("/users/login", {
                 email,      
                 password
-            },{
-                withCredentials: true
             });
+
             console.log('User logged in successfully:', response.data.data.user);
             setUser(response.data.data.user);
             navigate('/manager');

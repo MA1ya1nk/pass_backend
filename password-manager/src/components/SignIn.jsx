@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import axios from 'axios'
+import api from '../api.js';
 import { useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
@@ -11,11 +11,7 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/users/register', {
-                email,
-                username,       
-                password
-            });
+            const response = await api.post("/users/register", {email, username, password});
 
             console.log('User signed up successfully:', response.data);
             navigate('/login');
