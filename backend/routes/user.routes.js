@@ -3,7 +3,18 @@ import { login, Register, logout, addPassword, deletePassword, updatePassword } 
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
 
 const router = Router()
-
+// Welcome route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Password Manager API is running',
+    status: 'OK',
+    endpoints: {
+      users: '/api/users',
+      auth: '/api/auth',
+      // list your other endpoints
+    }
+  });
+});
 router.route("/register").post(Register)
 router.route("/login").post(login)
 router.route("/logout").post(verifyJWT, logout)
