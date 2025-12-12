@@ -72,7 +72,7 @@ const delPassword = async (entry) => {
 
 };
 
-/*
+
 const updPassword = async (oldEntry, newEntry) => {
   
 
@@ -84,7 +84,7 @@ const updPassword = async (oldEntry, newEntry) => {
     data: res.data.user.data
   }));
 };
-*/
+
 
 
   return (
