@@ -1,20 +1,21 @@
 import React from "react";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { logout, user } = useContext(AuthContext);
   return (
     <nav className="bg-slate-800 text-white ">
       <div className="mycontainer flex justify-between items-center px-4 py-5 h-14">
-        <a href="/">
+        <Link to="/">
         <div className="logo font-bold text-white text-2xl">
           <span className="text-green-500"> &lt;</span>
 
           <span>Pass</span>
           <span className="text-green-500">OP/&gt;</span>
         </div>
-        </a>
+        </Link>
         <div className="flex ">
           <a href="https://github.com/MA1ya1nk/password-manager">
             <button className="text-white bg-green-700 my-5 mx-2 rounded-full flex  justify-between items-center ring-white ring-1">
@@ -29,11 +30,11 @@ const Navbar = () => {
 
           {/* signin */}
           {!user && (
-          <a href="/signin">
+          <Link to="/signin">
             <button className="text-white bg-green-700 my-5 mx-2 rounded-full flex justify-between items-center ring-white ring-1">
               <span className="font-bold px-2 py-2">🔐 Sign In</span>
             </button>
-          </a>
+          </Link>
           )}
 
           {/* Logout here */}

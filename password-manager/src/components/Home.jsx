@@ -32,11 +32,11 @@ const Home = () => {
         </p>
 
         <div className="flex gap-4">
-            <a href="/signin">
+            <Link to="/signin">
           <button className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600">
             Get Started
           </button>
-          </a>
+          </Link>
  
           <Link to="features">
           <button className="px-6 py-3 border rounded-lg hover:bg-gray-100">
@@ -45,7 +45,7 @@ const Home = () => {
           </Link>
         </div>
       </section>
-
+     
       {/* ✅ FEATURES SECTION */}
       <section className="mt-20 max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
         

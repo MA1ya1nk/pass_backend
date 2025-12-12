@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import api from '../api.js';
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
     const [email, setEmail] = useState("")
@@ -69,13 +69,13 @@ const SignIn = () => {
       </div>
       <div className="text-center text-sm pb-2">
               <span className="text-gray-600">Already have an account? </span>
-              <a href="/login"
+              <Link to="/login"
             
                 className="text-blue-600 font-semibold hover:underline"
               >
                 Login
               
-              </a>
+              </Link>
             </div>
 
     </form>
