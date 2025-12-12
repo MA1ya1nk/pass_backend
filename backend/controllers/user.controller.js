@@ -83,11 +83,11 @@ const login = asyncHandler(async(req, res) => {
       
       // sending these tokens into cookies
       const options = {
-         httpOnly: true,  // by this no one can update cookie on frontend and modifiable through server only
-         secure: true,
-         sameSite: "none",  // ✅ MUST be "lax" on localhost
-  // path: "/",        
-      }
+   httpOnly: true,
+   secure: process.env.NODE_ENV === "production", // Only secure in production
+   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // "none" for production, "lax" for dev
+   maxAge: 24 * 60 * 60 * 1000, // 1 day
+}
 
       return res
       .status(200)
@@ -126,11 +126,11 @@ const logout = asyncHandler( async(req, res) => {
      // you can even do search by id then update the user by deleting refresh token
 
      const options = {
-      httpOnly: true,
-      secure: true,   // same as login
-    sameSite: "none",
-    
-     }
+   httpOnly: true,
+   secure: process.env.NODE_ENV === "production", // Only secure in production
+   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // "none" for production, "lax" for dev
+   maxAge: 24 * 60 * 60 * 1000, // 1 day
+}
 
      return res.status(200)
      .clearCookie("accessToken", options)
