@@ -84,9 +84,9 @@ const login = asyncHandler(async(req, res) => {
       // sending these tokens into cookies
       const options = {
    httpOnly: true,
-   secure: process.env.NODE_ENV === "production", // Only secure in production
-   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // "none" for production, "lax" for dev
-   maxAge: 24 * 60 * 60 * 1000, // 1 day
+   secure: true, // Only secure in production
+   sameSite: "none" // "none" for production, "lax" for dev
+  
 }
 
       return res
@@ -127,9 +127,9 @@ const logout = asyncHandler( async(req, res) => {
 
      const options = {
    httpOnly: true,
-   secure: process.env.NODE_ENV === "production", // Only secure in production
-   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // "none" for production, "lax" for dev
-   maxAge: 24 * 60 * 60 * 1000, // 1 day
+   secure: true, // Only secure in production
+   sameSite: "none" // "none" for production, "lax" for dev
+   
 }
 
      return res.status(200)
