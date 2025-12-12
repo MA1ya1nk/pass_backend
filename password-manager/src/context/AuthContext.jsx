@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     checkUser();
   }, []);
   
+  
 
    const logout = async () => {
     
@@ -47,25 +48,31 @@ export const AuthProvider = ({ children }) => {
   };
 
   const addPassword = async (newData) => {
-  
+       try{
         const res = await api.post("/users/addPassword", newData);
 
             console.log('User logged in successfully:', res.data.data);
             setUser(res.data.data);
-
+       } catch (error) {
+        console.error('Error adding password:', error);
+       }
 
 };
 
 const delPassword = async (entry) => {
-  
+      try{
         const res = await api.post("/users/deletePassword", entry);
 
   console.log('User deleted successfully:', res.data.data);
             setUser(res.data.data);
 
+        } catch (error) {
+          console.error('Error deleting password:', error);
+        }
+
 };
 
-
+/*
 const updPassword = async (oldEntry, newEntry) => {
   
 
@@ -77,7 +84,7 @@ const updPassword = async (oldEntry, newEntry) => {
     data: res.data.user.data
   }));
 };
-
+*/
 
 
   return (

@@ -17,14 +17,14 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />} >
       <Route path='' element={<Home />}/>
-      <Route path='signin' element={<PublicRoute>
+      <Route path='/signin' element={<PublicRoute>
             <SignIn />
           </PublicRoute>}/>
-      <Route path='login' element={ <PublicRoute>
+      <Route path='/login' element={ <PublicRoute>
             <Login />
           </PublicRoute>}/>
-      <Route path='features' element={<Features/>}/>
-      <Route path='manager' element={ <ProtectedRoute>
+      <Route path='/features' element={<Features/>}/>
+      <Route path='/manager' element={ <ProtectedRoute>
             <Manager />
           </ProtectedRoute>
       }/>
