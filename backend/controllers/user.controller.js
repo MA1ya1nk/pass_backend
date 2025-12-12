@@ -85,8 +85,7 @@ const login = asyncHandler(async(req, res) => {
       const options = {
    httpOnly: true,
    secure: true, // Only secure in production
-   sameSite: "none", // "none" for production, "lax" for dev
-   path: "/"
+   sameSite: "none" // "none" for production, "lax" for dev
 }
 
       return res
@@ -128,8 +127,8 @@ const logout = asyncHandler( async(req, res) => {
      const options = {
    httpOnly: true,
    secure: true, // Only secure in production
-   sameSite: "none",
-   path: "/" // "none" for production, "lax" for dev
+   sameSite: "none"
+
    
 }
 
