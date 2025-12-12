@@ -17,7 +17,7 @@ const Navbar = () => {
         </div>
         </Link>
         <div className="flex ">
-          <a href="https://github.com/MA1ya1nk/password-manager">
+          <a href="https://github.com/MA1ya1nk/pass_backend">
             <button className="text-white bg-green-700 my-5 mx-2 rounded-full flex  justify-between items-center ring-white ring-1">
               <img
                 className="invert  w-10 p-1"
