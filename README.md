@@ -206,7 +206,7 @@ npm install
 npm run dev
 
 ---
-
+```
 ## 🚀 Deployment
 
 * Backend deployed on **Render**
