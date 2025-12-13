@@ -12,7 +12,7 @@ A secure and scalable **Password Manager backend** built with modern backend tec
 
 ---
 
-## 🖥️ Frontend (Optional)
+## 🖥️ Frontend
 
 👉 **Frontend Live App:** [https://password-manager12.vercel.app/](https://password-manager12.vercel.app/)
 
@@ -75,17 +75,34 @@ A secure and scalable **Password Manager backend** built with modern backend tec
 ## 📂 Project Structure
 
 ```
-backend/
-├── src/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middlewares/
-│   ├── utils/
-│   └── app.js
-├── .env
-├── server.js
-├── package.json
+pass_backend/
+├── backend/
+│ ├── controllers/
+│ ├── db/
+│ ├── middlewares/
+│ ├── model/
+│ ├── routes/
+│ ├── utils/
+│ ├── app.js
+│ ├── index.js
+│ ├── package.json
+│ └── package-lock.json
+│
+├── password-manager/ # Frontend (Vite + React)
+│ ├── public/
+│ ├── src/
+│ │ ├── components/
+│ │ ├── pages/
+│ │ ├── services/
+│ │ └── App.jsx
+│ ├── index.html
+│ ├── vite.config.js
+│ ├── tailwind.config.js
+│ ├── postcss.config.js
+│ ├── package.json
+│ └── package-lock.json
+│
+├── .gitignore
 └── README.md
 ```
 
@@ -155,21 +172,38 @@ Authorization: Bearer <token>
 ## ⚙️ Installation & Setup
 
 ```bash
+🔹 Backend Setup
+
 # Clone repository
-git clone https://github.com/your-username/password-manager-backend.git
+git clone https://github.com/MA1ya1nk/pass_backend.git
+cd pass_backend/backend
+
+
+# Install backend dependencies
+npm install
+
+
+# Create environment file
+cp .env.example .env
+
+
+# Start backend server
+npm run dev
+
+
+🔹 Frontend Setup
+# back to main directory
+cd ..
+
+# into frontend folder
+cd password-manager
 
 # Install dependencies
 npm install
 
+
 # Start development server
 npm run dev
-```
-
-Server runs on:
-
-```
-http://localhost:5000
-```
 
 ---
 
@@ -204,8 +238,8 @@ http://localhost:5000
 
 **Mayank Kumar**
 
-* GitHub: [https://github.com/your-username](https://github.com/your-username)
-* LinkedIn: [https://linkedin.com/in/your-linkedin](https://linkedin.com/in/your-linkedin)
+* GitHub: [https://github.com/MA1ya1nk](https://github.com/MA1ya1nk)
+* LinkedIn: [www.linkedin.com/in/mayank-kumar-dev](www.linkedin.com/in/mayank-kumar-dev)
 
 ---
 
