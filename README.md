@@ -6,7 +6,7 @@ A secure and scalable **Password Manager backend** built with modern backend tec
 
 ## 🚀 Live API
 
-👉 **Live Backend URL:** [https://your-backend-live-link.com](https://your-backend-live-link.com)
+👉 **Live Backend URL:** [https://password-manager-amjc.onrender.com/](https://password-manager-amjc.onrender.com/)
 
 > Replace the link above with your deployed backend URL (Render / Railway / Vercel / AWS / etc.)
 
@@ -14,7 +14,7 @@ A secure and scalable **Password Manager backend** built with modern backend tec
 
 ## 🖥️ Frontend (Optional)
 
-👉 **Frontend Live App:** [https://your-frontend-live-link.com](https://your-frontend-live-link.com)
+👉 **Frontend Live App:** [https://password-manager12.vercel.app/](https://password-manager12.vercel.app/)
 
 ---
 
@@ -41,11 +41,22 @@ A secure and scalable **Password Manager backend** built with modern backend tec
 * bcrypt (Password Hashing)
 * Crypto / AES Encryption
 
+**Frontend**
+
+* HTML
+* TailwindCSS
+* JavaScript
+* React
+
+
 **Tools & Services**
 
 * Postman (API Testing)
 * MongoDB Atlas
-* Render / Railway (Deployment)
+* Render(Backend Deployment)
+* VS code(for development)
+* Vercel(frontend deployment)
+
 
 ---
 
@@ -82,14 +93,25 @@ backend/
 
 ## 🔑 Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory of Backend:
 
 ```env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-ENCRYPTION_KEY=your_encryption_key
+PORT = 3000
+DB_NAME=password
+MONGODB_URI = <YOUR_MONGO_URI>
+CORS_ORIGIN = http://localhost:5173
+ACCESS_TOKEN_SECRET = <LARGE_ALPHANUMERIC_VALUE>
+ACCESS_TOKEN_EXPIRY = 1d
+REFRESH_TOKEN_SECRET = <LARGE_ALPHANUMERIC_VALUE>
+REFRESH_TOKEN_EXPIRY=10D
 ```
+Create a `.env` file in the root directory of Frontend:
+
+```env
+VITE_BACKEND_URL=http://localhost:3000
+```
+
+
 
 > ⚠️ Never expose `.env` files in production or GitHub.
 
@@ -101,17 +123,17 @@ ENCRYPTION_KEY=your_encryption_key
 
 | Method | Endpoint             | Description       |
 | ------ | -------------------- | ----------------- |
-| POST   | `/api/auth/register` | Register new user |
-| POST   | `/api/auth/login`    | Login user        |
+| POST   | `/users/register` | Register new user |
+| POST   | `/user/login`    | Login user        |
 
 ### 🔑 Password Manager
 
 | Method | Endpoint             | Description             |
 | ------ | -------------------- | ----------------------- |
-| GET    | `/api/passwords`     | Get all saved passwords |
-| POST   | `/api/passwords`     | Add new password        |
-| PUT    | `/api/passwords/:id` | Update password         |
-| DELETE | `/api/passwords/:id` | Delete password         |
+| GET    | `/users/passwords`     | Get all saved passwords |
+| POST   | `/users/addPasswords`     | Add new password        |
+| PUT    | `/users/updatePasswords/` | Update password         |
+| DELETE | `/users/deletePasswords/` | Delete password         |
 
 ---
 
@@ -153,7 +175,8 @@ http://localhost:5000
 
 ## 🚀 Deployment
 
-* Backend deployed on **Render / Railway / AWS**
+* Backend deployed on **Render**
+* Frontend deployed on **vercel**
 * MongoDB hosted on **MongoDB Atlas**
 * Environment variables configured in deployment dashboard
 
