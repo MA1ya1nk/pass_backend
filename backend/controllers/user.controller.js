@@ -219,4 +219,43 @@ const updatePassword = asyncHandler( async(req, res) => {
     return res.json({ success: true, result });
 });  
 
-export { Register, login, logout, addPassword, deletePassword, updatePassword };
+const updateUserPassword = asyncHandler( async(req,res) => {
+   const {password, confirmPassword} = req.body
+
+   /*
+   if confirm password is also params so
+
+   if(confirmPassword !== newPassword) throw new ApiError(400, "confirmPassword and new password are different")
+   */
+
+   const userFromDB = await User.findById(req.user?._id)
+   const passwordCorrect = await userFromDB.isPasswordCorrect(password)
+
+   if(!passwordCorrect) throw new ApiError(400, "Password is incorrect")
+
+    userFromDB.password = confirmPassword
+    await userFromDB.save({validateBeforeSave: false})
+
+    return res.status(200)
+    .json(new ApiResponse(200, {}, "Password changed"))
+})
+
+const updateUserDetail = asyncHandler( async(req, res) => {
+  const {username} = req.body
+
+  const user = await User.findByIdAndUpdate(
+     req.user?._id,
+     {
+         $set: {
+                username
+            }
+     },
+     {new: true}
+  ).select("-password")
+
+  return res
+  .status(200)
+  .json(new ApiResponse(200, user, "Details updated sucessfully"))
+})
+
+export { Register, login, logout, addPassword, deletePassword, updatePassword,  updateUserPassword, updateUserDetail };

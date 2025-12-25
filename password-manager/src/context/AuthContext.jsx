@@ -35,8 +35,8 @@ export const AuthProvider = ({ children }) => {
 
    const logout = async () => {
     
-      const c=alert("Are you sure you want to logout?");
-      if(c) return;
+      // const c=alert("Are you sure you want to logout?");
+      // if(c) return;
     try {
       
          await api.post("/users/logout");
@@ -85,10 +85,26 @@ const updPassword = async (oldEntry, newEntry) => {
   }));
 };
 
+const updateUserPassword = async (password, confirmPassword) => {
+  try {
+    const res = await api.post("/users/updateUserPassword", { password, confirmPassword });
+    setUser(res.data.user);
+  } catch (error) {
+    console.error("Error updating password:", error);
+  }
+};
 
+const updateUserDetail = async (username) => {
+  try {
+    const res = await api.post("/users/updateUserDetail", { username });  
+    setUser(res.data.user);
+  } catch (error) {
+    console.error("Error updating user detail:", error);
+  }
+};
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, logout, addPassword, delPassword, updPassword }}>
+    <AuthContext.Provider value={{ user, setUser, loading, logout, addPassword, delPassword, updPassword, updateUserPassword, updateUserDetail }}>
       {children}
     </AuthContext.Provider>
   );

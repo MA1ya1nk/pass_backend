@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login, Register, logout, addPassword, deletePassword, updatePassword } from "../controllers/user.controller.js";
+import { login, Register, logout, addPassword, deletePassword, updatePassword, updateUserPassword, updateUserDetail } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
 
 const router = Router()
@@ -20,5 +20,7 @@ router.route("/me").get(verifyJWT, async (req, res) => {
 router.route("/addPassword").post(verifyJWT, addPassword)
 router.route("/deletePassword").post(verifyJWT, deletePassword)
 router.route("/updatePassword").put(verifyJWT, updatePassword)
+router.route("/updateUserPassword").post(verifyJWT, updateUserPassword)
+router.route("/updateUserDetail").post(verifyJWT, updateUserDetail)
 
 export default router

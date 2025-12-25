@@ -11,6 +11,7 @@ import { AuthProvider } from './context/AuthContext.jsx'
 import Manager from './components/Manager.jsx'
 import PublicRoute from './components/PublicRoute.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import Dashboard from './components/Dashboard.jsx'
 
 
 const router = createBrowserRouter(
@@ -26,6 +27,10 @@ const router = createBrowserRouter(
       <Route path='features' element={<Features/>}/>
       <Route path='manager' element={ <ProtectedRoute>
             <Manager />
+          </ProtectedRoute>
+      }/>
+      <Route path='dashboard' element={ <ProtectedRoute>
+            <Dashboard />
           </ProtectedRoute>
       }/>
       </Route>
