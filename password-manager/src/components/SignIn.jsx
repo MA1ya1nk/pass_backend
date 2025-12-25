@@ -7,7 +7,20 @@ const SignIn = () => {
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
     const navigate = useNavigate();
+    const ref = React.useRef();
+      const passwordRef = React.useRef();
 
+      const showPassword = () => {
+    passwordRef.current.type = "text";
+    console.log(ref.current.src);
+    if (ref.current.src.includes("icons/eye.png")) {
+      ref.current.src = "icons/eyecross.png";
+      passwordRef.current.type = "password";
+    } else {
+      passwordRef.current.type = "text";
+      ref.current.src = "icons/eye.png";
+    }
+  };
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -51,13 +64,29 @@ const SignIn = () => {
           className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e)=> setPassword(e.target.value)}
-          className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <div className="relative w-full">
+              <input
+                ref={passwordRef}
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <span
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                onClick={showPassword}
+              >
+                <img
+                  ref={ref}
+                  className="p-1"
+                  width={26}
+                  src="icons/eyecross.png"
+                  alt="eye"
+                />
+              </span>
+            </div>
 
         <button
           type="submit"
