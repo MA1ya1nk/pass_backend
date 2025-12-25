@@ -7,6 +7,8 @@ import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [messageType, setMessageType] = useState(""); // "error" or "success"
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
   const ref = React.useRef();
@@ -26,6 +28,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage(""); // Clear previous messages
     try {
       const response = await api.post("/users/login", {
         email,
@@ -33,10 +36,18 @@ const Login = () => {
       });
 
       console.log("User logged in successfully:", response.data.data.user);
+      setMessageType("success");
+      setMessage("Login successful! Redirecting...");
       setUser(response.data.data.user);
-      navigate("/manager");
+      setTimeout(() => {
+        navigate("/manager");
+      }, 1000);
     } catch (error) {
-      console.error("Erronr loggig in:", error);
+      console.error("Error logging in:", error);
+      setEmail("");
+      setPassword("");
+      setMessageType("error");
+      setMessage(error.response?.data?.message || "Invalid email or password. Please try again.");
     }
   };
   return (
@@ -48,6 +59,18 @@ const Login = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6 p-8">
+{message && (
+              <div
+                className={`p-3 rounded-lg text-sm font-medium ${
+                  messageType === "error"
+                    ? "bg-red-100 text-red-700 border border-red-300"
+                    : "bg-green-100 text-green-700 border border-green-300"
+                }`}
+              >
+                {message}
+              </div>
+            )}
+
             <input
               type="email"
               placeholder="Email"
