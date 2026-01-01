@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { login, Register, logout, addPassword, deletePassword, updatePassword, updateUserPassword, updateUserDetail } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router()
 
@@ -8,7 +9,7 @@ const router = Router()
 router.route("/").get((req, res) => {
     res.send("User route is working")
 })
-router.route("/register").post(Register)
+router.route("/register").post(upload.single("profilePicture"), Register)
 router.route("/login").post(login)
 router.route("/logout").post(verifyJWT, logout)
 router.route("/me").get(verifyJWT, async (req, res) => {

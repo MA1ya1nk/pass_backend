@@ -63,7 +63,26 @@ const Navbar = () => {
       className="text-white bg-green-700 my-5 mx-2 rounded-full flex justify-between items-center ring-white ring-1 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-300 font-medium px-2 py-2"
       type="button"
     >
+      <div className="flex items-center gap-2">
+        <div className="w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-gray-200 flex items-center justify-center flex-shrink-0">
+          {user.profilePicture ? (
+            <img 
+              src={user.profilePicture} 
+              alt="Profile" 
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <svg 
+              className="w-5 h-5 text-gray-500" 
+              fill="currentColor" 
+              viewBox="0 0 20 20"
+            >
+              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            </svg>
+          )}
+          </div>
       <span className="font-bold">Welcome {user.username}</span>
+      </div>
       <svg
         className="w-2.5 h-2.5 ms-3"
         aria-hidden="true"

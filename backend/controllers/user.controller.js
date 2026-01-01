@@ -2,6 +2,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../model/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { uploadFiletoCloudinary } from "../utils/cloudinary.js";
 
 
 const generateAccessAndRefreshToken = async (userId) => {
@@ -22,11 +23,9 @@ const generateAccessAndRefreshToken = async (userId) => {
 }
 
 const Register = asyncHandler(async(req, res) => {
-    console.log("first")
+   
    const {email, username, password} = req.body
-  console.log("second")
    if(!email || !username || !password) throw new ApiError(400, "All fields are required")
-    console.log(email, username, password)
 
    const existedUser = await User.findOne({
     $or: [{username}, {email}]  // return if any among username or email exist
@@ -37,10 +36,18 @@ const Register = asyncHandler(async(req, res) => {
         message: "User already exists"
     })
 
+    const avatarLocalPath = req.file?.path // local file path
+    if(!avatarLocalPath) throw new ApiError(400, "Avatar file required")
+
+  // 5.  upload data on cloudinary
+  const avatar = await uploadFiletoCloudinary(avatarLocalPath)
+  if(!avatar) throw new ApiError(400, "Avatar file is required")
+
     const user = await User.create({
         username,
         email,
-        password
+        password,
+        profilePicture: avatar.url // cloudinary url
     })
 
     const createdUser = await User.findById(user._id).select("-password -refreshToken")
@@ -58,7 +65,7 @@ const login = asyncHandler(async(req, res) => {
     // password check
     // generate access and refresh token 
     // send these through cookie
-    console.log("yes")
+    
     const {email, password} = req.body
     console.log(email)
 
@@ -121,7 +128,6 @@ const logout = asyncHandler( async(req, res) => {
           new: true
         }
      )
-     console.log("refresh token updated")
      // you can even do search by id then update the user by deleting refresh token
 
      const options = {

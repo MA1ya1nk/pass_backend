@@ -35,6 +35,10 @@ const userSchema = Schema({
         required: true
        }
     }],
+    profilePicture: {
+        type: String, // it store url of image
+        default: null
+    },
     refreshToken: {
         type: String,
     }
