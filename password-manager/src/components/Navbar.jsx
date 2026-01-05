@@ -21,7 +21,7 @@ const Navbar = () => {
         </Link>
         <div className="flex ">
           <a href="https://github.com/MA1ya1nk/pass_backend">
-            <button className="text-white bg-green-700 my-5 mx-2 rounded-full flex  justify-between items-center ring-white ring-1">
+            <button className="text-white bg-green-700 my-5 mx-2 py-1 rounded-full flex  justify-between items-center ring-white ring-1">
               <img
                 className="invert  w-10 p-1"
                 src="/icons/github.svg"
@@ -34,7 +34,7 @@ const Navbar = () => {
           {/* signin */}
           {!user && (
           <Link to="/signin">
-            <button className="text-white bg-green-700 my-5 mx-2 rounded-full flex justify-between items-center ring-white ring-1">
+            <button className="text-white bg-green-700 my-5 mx-2 py-1 rounded-full flex justify-between items-center ring-white ring-1">
               <span className="font-bold px-2 py-2">🔐 Sign In</span>
             </button>
           </Link>
